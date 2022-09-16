@@ -1,0 +1,21 @@
+<h1>Mister bowler, here are your results!</h1>
+<hr>
+
+<table id="bowlingScore">
+  <tr>
+    <th *ngFor = "let column of headers">
+      {{column}}
+    </th>
+  </tr>
+
+  <tr *ngFor = "let row of frames">
+    <td *ngFor = "let column of headers">
+      {{row[column]}}
+    </td>
+  </tr>
+<br/>
+  <div>
+    Expected final score: 
+  </div>
+
+</table>
