@@ -75,10 +75,10 @@ export class ScoreGameComponent implements OnInit {
 
   constructor() {}
   ngOnInit() {
-    if (frames2 != null) {
-      frames2.forEach((currentFrame) => {
-        var nextFrame = frames2[currentFrame.Frame];
-        var followingNextFrame = frames2[currentFrame.Frame + 1];
+    if (frames != null) {
+      frames.forEach((currentFrame) => {
+        var nextFrame = frames[currentFrame.Frame];
+        var followingNextFrame = frames[currentFrame.Frame + 1];
         this.score = this.addCurrentFrameRolls(currentFrame);
 
         if (nextFrame != null && currentFrame.Roll1 == 10) {
