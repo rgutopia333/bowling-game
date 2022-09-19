@@ -75,11 +75,11 @@ export class ScoreGameComponent implements OnInit {
 
   constructor() {}
   ngOnInit() {
-    if (frames != null) {
-      frames.forEach((currentFrame) => {
-        var nextFrame = frames[currentFrame.Frame];
-        var followingNextFrame = frames[currentFrame.Frame + 1];
-        this.addCurrentFrameRolls(currentFrame);
+    if (frames2 != null) {
+      frames2.forEach((currentFrame) => {
+        var nextFrame = frames2[currentFrame.Frame];
+        var followingNextFrame = frames2[currentFrame.Frame + 1];
+        this.score = this.addCurrentFrameRolls(currentFrame);
 
         if (nextFrame != null && currentFrame.Roll1 == 10) {
           this.score = this.addFollowingFrameRolls(nextFrame);
@@ -95,34 +95,45 @@ export class ScoreGameComponent implements OnInit {
           currentFrame.Roll1 < 10 &&
           currentFrame.Roll1 + currentFrame.Roll2 == 10
         ) {
-          this.addFollowingFrameFirstRoll(nextFrame);
+          this.score = this.addFollowingFrameFirstRoll(nextFrame);
         }
       });
     }
   }
 
   private addCurrentFrameRolls(currentFrame: Frames) {
-    this.score = this.score + currentFrame.Roll1 + currentFrame.Roll2;
+    var score = this.score + currentFrame.Roll1 + currentFrame.Roll2;
 
-    // this condition ensures that either a strike or spare is bowled in the 10th frame before accounting for the third roll
+    /** this condition ensures that either a strike or spare is bowled 
+    in the 10th frame before accounting for the third roll **/
     if (
       currentFrame.Frame == 10 &&
       (currentFrame.Roll1 == 10 ||
         currentFrame.Roll1 + currentFrame.Roll2 == 10)
     ) {
-      this.score = this.score + currentFrame.Roll3;
+      score = score + currentFrame.Roll3;
     }
+
+    return score;
   }
 
   private addFollowingFrameRolls(nextFrame: Frames) {
+    var score = this.score;
+
     if (nextFrame != null) {
-      this.score = this.score + nextFrame.Roll1 + nextFrame.Roll2;
+      score = score + nextFrame.Roll1 + nextFrame.Roll2;
     }
 
-    return this.score;
+    return score;
   }
 
   private addFollowingFrameFirstRoll(nextFrame: Frames) {
-    this.score = this.score + nextFrame.Roll1;
+    var score = this.score;
+
+    if (nextFrame != null) {
+      score = score + nextFrame.Roll1;
+    }
+
+    return score;
   }
 }
